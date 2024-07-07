@@ -14,19 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Refine
-          resources={[
-            {
-              name: 'products',
-              list: '/my-products',
-              show: '/my-products/:id',
-              edit: '/my-products/:id/edit',
-              create: '/my-products/new',
-            },
-          ]}
-        >
-          {children}
-        </Refine>
+        <Refine resources={[]}>{children}</Refine>
       </body>
     </html>
   );
