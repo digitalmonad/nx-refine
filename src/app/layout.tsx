@@ -1,3 +1,4 @@
+import { Refine } from '@refinedev/core';
 import './global.css';
 
 export const metadata = {
@@ -12,7 +13,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Refine
+          resources={[
+            {
+              name: 'products',
+              list: '/my-products',
+              show: '/my-products/:id',
+              edit: '/my-products/:id/edit',
+              create: '/my-products/new',
+            },
+          ]}
+        >
+          {children}
+        </Refine>
+      </body>
     </html>
   );
 }
