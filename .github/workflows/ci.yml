@@ -33,8 +33,22 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
+      - name: Restore cached npm dependencies
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
+
       - run: pnpm install --frozen-lockfile
-      - run: pnpm cypress install
+      - name: Cache npm dependencies
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/Cypress # needed for the Cypress binary
+          key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
       - uses: nrwl/nx-set-shas@v4
         with:
           main-branch-name: master
@@ -43,4 +57,4 @@ jobs:
       # - run: pnpm exec nx-cloud record -- echo Hello World
       - run: pnpm exec nx affected -t lint test build
       - run: curl http://localhost:3000
-    #   - run: pnpm exec nx affected --parallel 1 -t e2e-ci
+      - run: pnpm exec nx affected --parallel 1 -t e2e-ci
