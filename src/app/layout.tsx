@@ -1,4 +1,7 @@
 import { Refine } from '@refinedev/core';
+import { dataProvider } from 'src/providers/fake-rest-provider';
+import routerProvider from '@refinedev/nextjs-router';
+import React, { Suspense } from 'react';
 import './global.css';
 
 export const metadata = {
@@ -14,7 +17,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Refine resources={[]}>{children}</Refine>
+        <Suspense>
+          <Refine
+            dataProvider={dataProvider}
+            resources={[
+              {
+                name: 'products',
+                list: '/products',
+                create: '/products/create',
+                edit: '/products/edit/:id',
+                show: '/products/show/:id',
+              },
+            ]}
+            routerProvider={routerProvider}
+          >
+            {children}
+          </Refine>
+        </Suspense>
       </body>
     </html>
   );
