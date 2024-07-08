@@ -34,6 +34,7 @@ jobs:
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm cypress install
       - uses: nrwl/nx-set-shas@v4
         with:
           main-branch-name: master
