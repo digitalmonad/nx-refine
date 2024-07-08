@@ -38,6 +38,7 @@ jobs:
           key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm cypress install --force
       - name: Cache npm dependencies
         uses: actions/cache/save@v3
         with:
