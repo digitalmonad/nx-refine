@@ -7,10 +7,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions:
-  actions: read
-  contents: read
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -49,7 +45,7 @@ jobs:
             node_modules
             ~/.cache/Cypress # needed for the Cypress binary
           key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: ls -alt ~/.cache/Cypress
+
       - uses: nrwl/nx-set-shas@v4
         with:
           main-branch-name: master
