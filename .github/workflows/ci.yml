@@ -35,8 +35,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: master
 
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
       # - run: pnpm exec nx-cloud record -- echo Hello World
-    #   - run: pnpm exec nx affected -t lint test build
-    #   - run: pnpm exec nx affected --parallel 1 -t e2e-ci
+      - run: pnpm exec nx affected -t lint test build
+      - run: pnpm exec nx affected --parallel 1 -t e2e-ci
